@@ -9,5 +9,5 @@ package com.luxintong.elmservlet.service;
  * @date: 2023-12-15 17:17
  * @version: 1.0
  */
-public class DeliveryAddressService {
+public interface DeliveryAddressService {
 }
