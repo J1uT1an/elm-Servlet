@@ -9,5 +9,5 @@ package com.luxintong.elmservlet.dao;
  * @date: 2023-12-15 17:10
  * @version: 1.0
  */
-public class CartDao {
+public interface CartDao {
 }

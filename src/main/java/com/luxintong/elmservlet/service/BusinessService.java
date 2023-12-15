@@ -1,5 +1,9 @@
 package com.luxintong.elmservlet.service;
 
+import com.luxintong.elmservlet.po.Business;
+
+import java.util.List;
+
 /**
  * @projectName: <h3>elm-Servlet</h3>
  * @package: com.luxintong.elmservlet.service.impl
@@ -9,5 +13,20 @@ package com.luxintong.elmservlet.service;
  * @date: 2023-12-15 17:16
  * @version: 1.0
  */
-public class BusinessService {
+public interface BusinessService {
+	/**
+	 * 根据点餐分类编号查询所属商家信息
+	 *
+	 * @param orderTypeId
+	 * @return
+	 */
+	List<Business> listBusinessByOrderTypeId(Integer orderTypeId);
+	
+	/**
+	 * 根据商家编号查询商家信息
+	 *
+	 * @param businessId
+	 * @return
+	 */
+	Business getBusinessById(Integer businessId);
 }
