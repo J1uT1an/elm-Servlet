@@ -29,12 +29,12 @@ public class CartDaoImpl implements CartDao {
 	private ResultSet rs;
 	
 	@Override
-	// 根据用户编号查询此用户所有购物车信息​ 根据用户编号和商家编号，查询此用户购物车中某个商家的所有购物车信息
+	// 根据用户编号查询此用户所有购物车信息 ​ 根据用户编号和商家编号，查询此用户购物车中某个商家的所有购物车信息
 	public List<Cart> listCart(Cart cart) throws SQLException {
-		// 创建List集合，用来保存查询结果
+		// 创建 List 集合，用来保存查询结果
 		List<Cart> list = new ArrayList<>();
 		
-		// sql语句
+		// sql 语句
 		StringBuffer stringBuffer = new StringBuffer("select * from cart,business,food \n" +
 				"where cart.businessId=business.businessId and cart.foodId=food.foodId \n" +
 				"and cart.userId=?");
@@ -53,7 +53,7 @@ public class CartDaoImpl implements CartDao {
 			// 执行查询，并将查询结果保存在结果集中
 			rs = pst.executeQuery();
 			
-			// 遍历结果集，将数据保存到list集合中
+			// 遍历结果集，将数据保存到 List 集合中
 			while (rs.next()) {
 				cart = new Cart();
 				cart.setCartId(rs.getInt("cartId"));
@@ -96,7 +96,7 @@ public class CartDaoImpl implements CartDao {
 	// 向购物车表中添加一条记录
 	public Integer saveCart(String userId, Integer businessId, Integer foodId) throws SQLException {
 		int row = 0;
-		// sql语句
+		// sql 语句
 		String sql = "insert into cart(userId,businessId,foodId,quantity) values(?,?,?,1)";
 		try {
 			con = DBUtil.getConnection();
@@ -117,7 +117,7 @@ public class CartDaoImpl implements CartDao {
 	// 根据用户编号、商家编号、食品编号更新数量
 	public Integer updateCart(String userId, Integer businessId, Integer foodId, Integer quantity) throws SQLException {
 		int row = 0;
-		// sql语句
+		// sql 语句
 		String sql = "update cart set quantity=? where userId=? and businessId=? and foodId=?";
 		try {
 			con = DBUtil.getConnection();
@@ -128,7 +128,7 @@ public class CartDaoImpl implements CartDao {
 			pst.setInt(3, businessId);
 			pst.setInt(4, foodId);
 			
-			// pst.executeUpdate这个方法是返回影响数据库的行数
+			// pst.executeUpdate 这个方法是返回影响数据库的行数
 			row = pst.executeUpdate();
 		} finally {
 			DBUtil.close(pst);
@@ -137,10 +137,10 @@ public class CartDaoImpl implements CartDao {
 	}
 	
 	@Override
-//    根据用户编号、商家编号、食品编号删除购物车表中的一条食品记录​ 根据用户编号、商家编号删除购物车表中的多条条记录
+	// 根据用户编号、商家编号、食品编号删除购物车表中的一条食品记录 ​ 根据用户编号、商家编号删除购物车表中的多条条记录
 	public Integer removeCart(String userId, Integer businessId, Integer foodId) throws SQLException {
 		int row = 0;
-//        sql语句
+		// sql 语句
 		StringBuffer stringBuffer = new StringBuffer("delete from cart where userId=? and businessId=?");
 		if (foodId != null) {
 			stringBuffer.append(" and foodId=?");

@@ -58,7 +58,7 @@ public class DeliveryAddressServiceImpl implements DeliveryAddressService {
 		DeliveryAddressDao deliveryAddressDao = new DeliveryAddressDaoImpl();
 		int row = 0;
 		try {
-			//开启一个事物
+			// 开启一个事物
 			DBUtil.beginTransaction();
 			row = deliveryAddressDao.saveDeliveryAddress(contactName, contactSex, contactTel, address, userId);
 			DBUtil.getConnection().commit();

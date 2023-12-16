@@ -58,9 +58,9 @@ public class BusinessDaoImpl implements BusinessDao {
 				list.add(business);
 			}
 		} finally {
-			// 这里不能处理异常，也就是没有catch，只有finally
+			// 这里不能处理异常，也就是没有 catch，只有 finally
 			DBUtil.close(rs, pst);
-			// 这里负责关闭PreparedStatement和ResultSet
+			// 这里负责关闭 PreparedStatement 和 ResultSet
 		}
 		return list;
 	}
@@ -71,10 +71,10 @@ public class BusinessDaoImpl implements BusinessDao {
 		// 根据商家编号查询商家信息
 		Business business = null;
 		
-		// 查询sql语句
+		// 查询 sql 语句
 		String sql = "select * from business where businessId = ?";
 		try {
-			// Connection从ThreadLocal中获取
+			// Connection 从 ThreadLocal 中获取
 			con = DBUtil.getConnection();
 			pst = con.prepareStatement(sql);
 			// 将？替换成具体的值
@@ -82,7 +82,7 @@ public class BusinessDaoImpl implements BusinessDao {
 			// 执行查询，并将查询结果放到结果集里
 			rs = pst.executeQuery();
 			
-			// 遍历结果集，并将每行数据保存到List集合中
+			// 遍历结果集，并将每行数据保存到 List 集合中
 			while (rs.next()) {
 				business = new Business();
 				business.setBusinessId(rs.getInt("businessId"));
@@ -96,9 +96,9 @@ public class BusinessDaoImpl implements BusinessDao {
 				business.setRemarks(rs.getString("remarks"));
 			}
 		} finally {
-			// 这里不能处理异常，也就是没有catch，只有finally
+			// 这里不能处理异常，也就是没有 catch，只有 finally
 			DBUtil.close(rs, pst);
-			// 这里负责关闭PreparedStatement和ResultSet
+			// 这里负责关闭 PreparedStatement和 ResultSet
 		}
 		return business;
 	}
