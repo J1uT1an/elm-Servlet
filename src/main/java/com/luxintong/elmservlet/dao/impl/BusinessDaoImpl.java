@@ -21,6 +21,7 @@ import java.util.List;
  * @version: 1.0
  */
 public class BusinessDaoImpl implements BusinessDao {
+	
 	private Connection con;
 	private PreparedStatement pst;
 	private ResultSet rs;
@@ -34,13 +35,11 @@ public class BusinessDaoImpl implements BusinessDao {
 		// 查询sql语句
 		String sql = "select * from business where orderTypeId = ? order by businessId";
 		try {
-			// Connection从ThreadLocal中获取
+			// Connection 从 ThreadLocal 中获取
 			con = DBUtil.getConnection();
 			pst = con.prepareStatement(sql);
-			
 			// 将？替换成具体的值
 			pst.setInt(1, orderTypeId);
-			
 			// 执行查询，并将查询结果放到结果集里
 			rs = pst.executeQuery();
 			
@@ -59,15 +58,16 @@ public class BusinessDaoImpl implements BusinessDao {
 				list.add(business);
 			}
 		} finally {
-			//这里不能处理异常，也就是没有catch，只有finally
+			// 这里不能处理异常，也就是没有catch，只有finally
 			DBUtil.close(rs, pst);
-			//这里负责关闭PreparedStatement和ResultSet
+			// 这里负责关闭PreparedStatement和ResultSet
 		}
 		return list;
 	}
 	
 	@Override
 	public Business getBusinessById(Integer businessId) throws SQLException {
+		
 		// 根据商家编号查询商家信息
 		Business business = null;
 		
@@ -77,10 +77,8 @@ public class BusinessDaoImpl implements BusinessDao {
 			// Connection从ThreadLocal中获取
 			con = DBUtil.getConnection();
 			pst = con.prepareStatement(sql);
-			
 			// 将？替换成具体的值
 			pst.setInt(1, businessId);
-			
 			// 执行查询，并将查询结果放到结果集里
 			rs = pst.executeQuery();
 			
@@ -98,9 +96,9 @@ public class BusinessDaoImpl implements BusinessDao {
 				business.setRemarks(rs.getString("remarks"));
 			}
 		} finally {
-			//这里不能处理异常，也就是没有catch，只有finally
+			// 这里不能处理异常，也就是没有catch，只有finally
 			DBUtil.close(rs, pst);
-			//这里负责关闭PreparedStatement和ResultSet
+			// 这里负责关闭PreparedStatement和ResultSet
 		}
 		return business;
 	}

@@ -16,8 +16,8 @@ public class Business {
 	private String businessExplain;
 	private String businessImg;
 	private Integer orderTypeId;
-	private Double starPrice;
-	private Double deliveryPrice;
+	private Double starPrice; // 起送费
+	private Double deliveryPrice; // 配送费
 	private String remarks;
 	
 	public Integer getBusinessId() {
