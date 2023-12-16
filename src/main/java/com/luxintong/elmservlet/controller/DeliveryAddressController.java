@@ -1,13 +1,79 @@
 package com.luxintong.elmservlet.controller;
 
+import com.luxintong.elmservlet.po.DeliveryAddress;
+import com.luxintong.elmservlet.service.DeliveryAddressService;
+import com.luxintong.elmservlet.service.impl.DeliveryAddressServiceImpl;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.List;
+
 /**
  * @projectName: <h3>elm-Servlet</h3>
  * @package: com.luxintong.elmservlet.controller
- * @className: DeliveryaddressController
+ * @className: DeliveryAddressController
  * @author: Lu Xintong
- * @description <p>DeliveryaddressController</p>
+ * @description <p>DeliveryAddressController</p>
  * @date: 2023-12-15 17:14
  * @version: 1.0
  */
 public class DeliveryAddressController {
+	public Object listDeliveryAddressByUserId(HttpServletRequest request) {
+		// 根据用户编号查询所属送货地址
+		// public List<DeliveryAddress> listDeliveryAddressByUserId(String userId);
+		// 获取前台的请求参数，/DeliveryAddressController/listDeliveryAddressByUserId?userId=11111111111,并将其强转为Integer类型
+		String userId = request.getParameter("userId");
+		DeliveryAddressService deliveryAddressService = new DeliveryAddressServiceImpl();
+		List<DeliveryAddress> list = deliveryAddressService.listDeliveryAddressByUserId(userId);
+		return list;
+	}
+	
+	public Object getDeliveryAddressById(HttpServletRequest request) {
+		// 根据送货地址编号查询送货地址
+		// public DeliveryAddress getDeliveryAddressById(Integer daId);
+		// 获取前台的请求参数，/DeliveryAddressController/getDeliveryAddressById?daId=5,并将其强转为Integer类型
+		Integer daId = Integer.parseInt(request.getParameter("daId"));
+		DeliveryAddressService deliveryAddressService = new DeliveryAddressServiceImpl();
+		DeliveryAddress deliveryaddress = new DeliveryAddress();
+		deliveryaddress = deliveryAddressService.getDeliveryAddressById(daId);
+		return deliveryaddress;
+	}
+	
+	public Object saveDeliveryAddress(HttpServletRequest request) {
+		// 向送货地址表中添加一条记录
+		// public Integer saveDeliveryAddress (String contactName,Integer contactSex,String contactTel,String address,String userId)
+		// 获取前台的请求参数，/DeliveryAddressController/saveDeliveryAddress?contactName=henan&contactSex=0&contactTel=11654&address=pingdingshan&userId=13568682444,并将其强转为Integer类型
+		String contactName = request.getParameter("contactName");
+		Integer contactSex = Integer.parseInt(request.getParameter("contactSex"));
+		String contactTel = request.getParameter("contactTel");
+		String address = request.getParameter("address");
+		String userId = request.getParameter("userId");
+		DeliveryAddressService deliveryAddressService = new DeliveryAddressServiceImpl();
+		int row = deliveryAddressService.saveDeliveryAddress(contactName, contactSex, contactTel, address, userId);
+		return row;
+	}
+	
+	public Object updateDeliveryAddress(HttpServletRequest request) {
+		// 根据送货地址编号更新送货地址信息
+		// public Integer updateDeliveryAddress (Integer daId,String contactName,Integer contactSex,String contactTel,String address,String userId)
+		// 获取前台的请求参数，/DeliveryAddressController/updateDeliveryAddress?daId=2&contactName=beijing&contactSex=0&contactTel=11654&address=pingdingshan&userId=13568682444,并将其强转为Integer类型
+		Integer daId = Integer.parseInt(request.getParameter("daId"));
+		String contactName = request.getParameter("contactName");
+		Integer contactSex = Integer.parseInt(request.getParameter("contactSex"));
+		String contactTel = request.getParameter("contactTel");
+		String address = request.getParameter("address");
+		String userId = request.getParameter("userId");
+		DeliveryAddressService deliveryAddressService = new DeliveryAddressServiceImpl();
+		int row = deliveryAddressService.updateDeliveryAddress(daId, contactName, contactSex, contactTel, address, userId);
+		return row;
+	}
+	
+	public Object removeDeliveryAddress(HttpServletRequest request) {
+		// 根据送货地址编号删除一条记录
+		// public Integer removeDeliveryAddress (Integer daId)
+		// 获取前台的请求参数，/DeliveryAddressController/removeDeliveryAddress?daId=3,并将其强转为Integer类型
+		Integer daId = Integer.parseInt(request.getParameter("daId"));
+		DeliveryAddressService deliveryAddressService = new DeliveryAddressServiceImpl();
+		int row = deliveryAddressService.removeDeliveryAddress(daId);
+		return row;
+	}
 }
