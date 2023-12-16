@@ -1,5 +1,8 @@
 package com.luxintong.elmservlet.util;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 /**
  * @projectName: <h3>elm-Servlet</h3>
  * @package: com.luxintong.elmservlet.util
@@ -10,4 +13,9 @@ package com.luxintong.elmservlet.util;
  * @version: 1.0
  */
 public class CommonUtil {
+	public static String getCurrentDate() {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar calendar = Calendar.getInstance();
+		return sdf.format(calendar.getTime());
+	}
 }
