@@ -92,6 +92,7 @@ public class DBUtil {
 		}
 	}
 	
+	// 创建 connection
 	private static Connection createConnection() {
 		Connection con = null;
 		if (con == null) {
