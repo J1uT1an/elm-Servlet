@@ -2,7 +2,6 @@ package com.luxintong.elmservlet.dao;
 
 import com.luxintong.elmservlet.po.Business;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -21,7 +20,7 @@ public interface BusinessDao {
 	 * @param orderTypeId
 	 * @return
 	 */
-	List<Business> listBusinessByOrderTypeId(Integer orderTypeId) throws SQLException;
+	List<Business> listBusinessByOrderTypeId(Integer orderTypeId) throws Exception;
 	
 	/**
 	 * 根据商家编号查询商家信息
@@ -29,5 +28,5 @@ public interface BusinessDao {
 	 * @param businessId
 	 * @return
 	 */
-	Business getBusinessById(Integer businessId) throws SQLException;
+	Business getBusinessById(Integer businessId) throws Exception;
 }

@@ -6,7 +6,6 @@ import com.luxintong.elmservlet.po.Business;
 import com.luxintong.elmservlet.service.BusinessService;
 import com.luxintong.elmservlet.util.DBUtil;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +25,7 @@ public class BusinessServiceImpl implements BusinessService {
 		BusinessDao businessDao = new BusinessDaoImpl();
 		try {
 			list = businessDao.listBusinessByOrderTypeId(orderTypeId);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBUtil.close();
@@ -40,7 +39,7 @@ public class BusinessServiceImpl implements BusinessService {
 		BusinessDao businessDao = new BusinessDaoImpl();
 		try {
 			business = businessDao.getBusinessById(businessId);
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBUtil.close();
