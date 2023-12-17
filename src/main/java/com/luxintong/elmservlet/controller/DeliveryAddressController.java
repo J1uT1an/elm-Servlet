@@ -20,7 +20,7 @@ public class DeliveryAddressController {
 	public Object listDeliveryAddressByUserId(HttpServletRequest request) throws Exception {
 		// 根据用户编号查询所属送货地址
 		// public List<DeliveryAddress> listDeliveryAddressByUserId(String userId);
-		// 获取前台的请求参数，/DeliveryAddressController/listDeliveryAddressByUserId?userId=11111111111,并将其强转为Integer类型
+		// 获取前台的请求参数，/DeliveryAddressController/listDeliveryAddressByUserId?userId=11111111111
 		String userId = request.getParameter("userId");
 		DeliveryAddressService service = new DeliveryAddressServiceImpl();
 		List<DeliveryAddress> list = service.listDeliveryAddressByUserId(userId);
@@ -30,7 +30,7 @@ public class DeliveryAddressController {
 	public Object getDeliveryAddressById(HttpServletRequest request) throws Exception {
 		// 根据送货地址编号查询送货地址
 		// public DeliveryAddress getDeliveryAddressById(Integer daId);
-		// 获取前台的请求参数，/DeliveryAddressController/getDeliveryAddressById?daId=5,并将其强转为Integer类型
+		// 获取前台的请求参数，/DeliveryAddressController/getDeliveryAddressById?daId=5
 		Integer daId = Integer.valueOf(request.getParameter("daId"));
 		DeliveryAddressService service = new DeliveryAddressServiceImpl();
 		DeliveryAddress deliveryAddress = service.getDeliveryAddressById(daId);
@@ -39,7 +39,7 @@ public class DeliveryAddressController {
 	
 	public Object saveDeliveryAddress(HttpServletRequest request) throws Exception {
 		// 向送货地址表中添加一条记录
-		// public Integer saveDeliveryAddress (String contactName,Integer contactSex,String contactTel,String address,String userId)
+		// public Integer saveDeliveryAddress (DeliveryAddress deliveryAddress)
 		// 获取前台的请求参数，/DeliveryAddressController/saveDeliveryAddress?contactName=henan&contactSex=0&contactTel=11654&address=pingdingshan&userId=13568682444,并将其强转为Integer类型
 		DeliveryAddress deliveryAddress = new DeliveryAddress();
 		deliveryAddress.setContactName(request.getParameter("contactName"));
@@ -54,7 +54,7 @@ public class DeliveryAddressController {
 	
 	public Object updateDeliveryAddress(HttpServletRequest request) throws Exception {
 		// 根据送货地址编号更新送货地址信息
-		// public Integer updateDeliveryAddress (Integer daId,String contactName,Integer contactSex,String contactTel,String address,String userId)
+		// public Integer updateDeliveryAddress (DeliveryAddress deliveryAddress)
 		// 获取前台的请求参数，/DeliveryAddressController/updateDeliveryAddress?daId=2&contactName=beijing&contactSex=0&contactTel=11654&address=pingdingshan&userId=13568682444,并将其强转为Integer类型
 		DeliveryAddress deliveryAddress = new DeliveryAddress();
 		deliveryAddress.setContactName(request.getParameter("contactName"));
