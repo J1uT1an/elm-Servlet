@@ -23,9 +23,9 @@ import java.util.List;
  */
 public class CartDaoImpl implements CartDao {
 	
-	private Connection con;
-	private PreparedStatement pst;
-	private ResultSet rs;
+	private Connection con = null;
+	private PreparedStatement pst = null;
+	private ResultSet rs = null;
 	
 	@Override
 	// 根据用户编号查询此用户所有购物车信息 ​ 根据用户编号和商家编号，查询此用户购物车中某个商家的所有购物车信息
