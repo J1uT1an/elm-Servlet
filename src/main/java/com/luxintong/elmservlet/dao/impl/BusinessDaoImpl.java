@@ -7,7 +7,6 @@ import com.luxintong.elmservlet.util.DBUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,12 +21,12 @@ import java.util.List;
  */
 public class BusinessDaoImpl implements BusinessDao {
 	
-	private Connection con;
-	private PreparedStatement pst;
-	private ResultSet rs;
+	private Connection con = null;
+	private PreparedStatement pst = null;
+	private ResultSet rs = null;
 	
 	@Override
-	public List<Business> listBusinessByOrderTypeId(Integer orderTypeId) throws SQLException {
+	public List<Business> listBusinessByOrderTypeId(Integer orderTypeId) throws Exception {
 		
 		// 根据点餐分类编号查询所属商家信息
 		List<Business> list = new ArrayList<>();
@@ -66,13 +65,14 @@ public class BusinessDaoImpl implements BusinessDao {
 	}
 	
 	@Override
-	public Business getBusinessById(Integer businessId) throws SQLException {
+	public Business getBusinessById(Integer businessId) throws Exception {
 		
 		// 根据商家编号查询商家信息
 		Business business = null;
 		
 		// 查询 sql 语句
 		String sql = "select * from business where businessId = ?";
+		
 		try {
 			// Connection 从 ThreadLocal 中获取
 			con = DBUtil.getConnection();
