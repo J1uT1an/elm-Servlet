@@ -1,5 +1,10 @@
 package com.luxintong.elmservlet.service;
 
+import com.luxintong.elmservlet.po.Food;
+
+import java.util.List;
+
+
 /**
  * @projectName: <h3>elm-Servlet</h3>
  * @package: com.luxintong.elmservlet.service
@@ -10,5 +15,11 @@ package com.luxintong.elmservlet.service;
  * @version: 1.0
  */
 public interface FoodService {
-
+	/**
+	 * 根据商家编号查询所属食品信息
+	 *
+	 * @param businessId
+	 * @return
+	 */
+	List<Food> listFoodByBusinessId(Integer businessId);
 }
