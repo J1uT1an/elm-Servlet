@@ -20,9 +20,9 @@ import java.util.List;
  * @version: 1.0
  */
 public class DeliveryAddressDaoImpl implements DeliveryAddressDao {
-	private Connection con;
-	private PreparedStatement pst;
-	private ResultSet rs;
+	private Connection con = null;
+	private PreparedStatement pst = null;
+	private ResultSet rs = null;
 	
 	@Override
 	public List<DeliveryAddress> listDeliveryAddressByUserId(String userId) throws Exception {
