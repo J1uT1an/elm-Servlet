@@ -22,9 +22,10 @@ public class BusinessServiceImpl implements BusinessService {
 	@Override
 	public List<Business> listBusinessByOrderTypeId(Integer orderTypeId) {
 		List<Business> list = new ArrayList<>();
-		BusinessDao businessDao = new BusinessDaoImpl();
+		BusinessDao dao = new BusinessDaoImpl();
 		try {
-			list = businessDao.listBusinessByOrderTypeId(orderTypeId);
+			DBUtil.getConnection();
+			list = dao.listBusinessByOrderTypeId(orderTypeId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -35,10 +36,11 @@ public class BusinessServiceImpl implements BusinessService {
 	
 	@Override
 	public Business getBusinessById(Integer businessId) {
-		Business business = new Business();
-		BusinessDao businessDao = new BusinessDaoImpl();
+		Business business = null;
+		BusinessDao dao = new BusinessDaoImpl();
 		try {
-			business = businessDao.getBusinessById(businessId);
+			DBUtil.getConnection();
+			business = dao.getBusinessById(businessId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
