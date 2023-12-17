@@ -2,8 +2,6 @@ package com.luxintong.elmservlet.service;
 
 import com.luxintong.elmservlet.po.User;
 
-import java.sql.SQLException;
-
 /**
  * @projectName: <h3>elm-Servlet</h3>
  * @package: com.luxintong.elmservlet.service
@@ -34,11 +32,8 @@ public interface UserService {
 	/**
 	 * 向用户表中添加一条记录
 	 *
-	 * @param userId
-	 * @param password
-	 * @param userName
-	 * @param userSex
+	 * @param user
 	 * @return
 	 */
-	Integer saveUser(String userId, String password, String userName, Integer userSex) throws SQLException;
+	Integer saveUser(User user);
 }

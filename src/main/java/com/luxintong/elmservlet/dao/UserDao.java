@@ -2,8 +2,6 @@ package com.luxintong.elmservlet.dao;
 
 import com.luxintong.elmservlet.po.User;
 
-import java.sql.SQLException;
-
 /**
  * @projectName: <h3>elm-Servlet</h3>
  * @package: com.luxintong.elmservlet.dao
@@ -19,26 +17,26 @@ public interface UserDao {
 	 *
 	 * @param userId
 	 * @param password
-	 * @return
+	 * @return Exception
+	 * @throws
 	 */
-	User getUserByIdByPass(String userId, String password) throws SQLException;
+	User getUserByIdByPass(String userId, String password) throws Exception;
 	
 	/**
 	 * 根据用户编号查询用户表返回的行数
 	 *
 	 * @param userId
+	 * @return Exception
 	 * @return
 	 */
-	Integer getUserById(String userId);
+	Integer getUserById(String userId) throws Exception;
 	
 	/**
 	 * 向用户表中添加一条记录
 	 *
-	 * @param userId
-	 * @param password
-	 * @param userName
-	 * @param userSex
+	 * @param user
+	 * @return Exception
 	 * @return
 	 */
-	Integer saveUser(String userId, String password, String userName, Integer userSex) throws SQLException;
+	Integer saveUser(User user) throws Exception;
 }

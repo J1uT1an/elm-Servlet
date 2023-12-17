@@ -6,8 +6,6 @@ import com.luxintong.elmservlet.po.User;
 import com.luxintong.elmservlet.service.UserService;
 import com.luxintong.elmservlet.util.DBUtil;
 
-import java.sql.SQLException;
-
 /**
  * @projectName: <h3>elm-Servlet</h3>
  * @package: com.luxintong.elmservlet.service.impl
@@ -19,13 +17,14 @@ import java.sql.SQLException;
  */
 public class UserServiceImpl implements UserService {
 	@Override
-	// 根据用户编号与密码查询用户信息
 	public User getUserByIdByPass(String userId, String password) {
-		User user = new User();
-		UserDao userDao = new UserDaoImpl();
+		// 根据用户编号与密码查询用户信息
+		User user = null;
+		UserDao dao = new UserDaoImpl();
 		try {
-			user = userDao.getUserByIdByPass(userId, password);
-		} catch (SQLException e) {
+			DBUtil.getConnection();
+			user = dao.getUserByIdByPass(userId, password);
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBUtil.close();
@@ -34,39 +33,36 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	// 根据用户编号查询用户表返回的行数
 	public Integer getUserById(String userId) {
-		int count = 0;
-		UserDao userDao = new UserDaoImpl();
+		// 根据用户编号查询用户表返回的行数
+		int result = 0;
+		UserDao dao = new UserDaoImpl();
 		try {
-			count = userDao.getUserById(userId);
+			DBUtil.getConnection();
+			result = dao.getUserById(userId);
+		} catch (Exception e) {
+			e.printStackTrace();
 		} finally {
 			DBUtil.close();
 		}
-		return count;
+		return result;
 	}
 	
 	@Override
-	// 向用户表中添加一条记录
-	public Integer saveUser(String userId, String password, String userName, Integer userSex) throws SQLException {
-		UserDao userDao = new UserDaoImpl();
-		int row = 0;
+	public Integer saveUser(User user) {
+		// 向用户表中添加一条记录
+		int result = 0;
+		UserDao dao = new UserDaoImpl();
 		try {
-			// 开启一个事物
-			DBUtil.beginTransaction();
-			row = userDao.saveUser(userId, password, userName, userSex);
-			DBUtil.getConnection().commit();
-		} catch (SQLException e) {
-			try {
-				DBUtil.getConnection().rollback();
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
-			e.printStackTrace();
+			DBUtil.getConnection();
+			result = dao.saveUser(user);
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			DBUtil.close();
 		}
-		return row;
+		return result;
 	}
 }
+
 
