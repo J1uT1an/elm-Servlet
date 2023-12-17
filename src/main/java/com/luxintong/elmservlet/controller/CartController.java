@@ -20,7 +20,7 @@ public class CartController {
 	public Object listCart(HttpServletRequest request) {
 		// 根据用户编号查询此用户所有购物车信息 ​ 根据用户编号和商家编号，查询此用户购物车中某个商家的所有购物车信息
 		// public List<Deliveryaddress> listDeliveryAddressByUserId(String userId);
-		// 获取前台的请求参数，/CartController/listCart?userId=12345671111&businessId=10001,并将其强转为Integer类型
+		// 获取前台的请求参数，/CartController/listCart?userId=12345671111&businessId=10001
 		Cart cart = new Cart();
 		cart.setUserId(request.getParameter("userId"));
 		if (request.getParameter("businessId") != null) {
