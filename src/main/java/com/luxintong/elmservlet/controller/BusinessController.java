@@ -19,7 +19,7 @@ import java.util.List;
 public class BusinessController {
 	public Object listBusinessByOrderTypeId(HttpServletRequest request) {
 		// 根据点餐分类编号查询所属商家信息
-		// 获取前台的请求参数，/BusinessController/listBusinessByOrderTypeId?orderTypeId=1,并将其强转为Integer类型
+		// 获取前台的请求参数，/BusinessController/listBusinessByOrderTypeId?orderTypeId=1
 		Integer orderTypeId = Integer.valueOf(request.getParameter("orderTypeId"));
 		BusinessService service = new BusinessServiceImpl();
 		List<Business> list = service.listBusinessByOrderTypeId(orderTypeId);
@@ -28,7 +28,7 @@ public class BusinessController {
 	
 	public Business getBusinessById(HttpServletRequest request) {
 		// 根据商家编号查询商家信息
-		// 获取前台的请求参数，/BusinessController/getBusinessById?BusinessId=10001,并将其强转为Integer类型
+		// 获取前台的请求参数，/BusinessController/getBusinessById?BusinessId=10001
 		Integer businessId = Integer.valueOf(request.getParameter("businessId"));
 		BusinessService service = new BusinessServiceImpl();
 		Business business = service.getBusinessById(businessId);
