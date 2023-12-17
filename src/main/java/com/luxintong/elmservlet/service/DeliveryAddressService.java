@@ -33,27 +33,18 @@ public interface DeliveryAddressService {
 	/**
 	 * 向送货地址表中添加一条记录
 	 *
-	 * @param contactName
-	 * @param contactSex
-	 * @param contactTel
-	 * @param address
-	 * @param userId
+	 * @param deliveryAddress
 	 * @return
 	 */
-	Integer saveDeliveryAddress(String contactName, Integer contactSex, String contactTel, String address, String userId);
+	Integer saveDeliveryAddress(DeliveryAddress deliveryAddress);
 	
 	/**
 	 * 根据送货地址编号更新送货地址信息
 	 *
-	 * @param daId
-	 * @param contactName
-	 * @param contactSex
-	 * @param contactTel
-	 * @param address
-	 * @param userId
+	 * @param deliveryAddress
 	 * @return
 	 */
-	Integer updateDeliveryAddress(Integer daId, String contactName, Integer contactSex, String contactTel, String address, String userId);
+	Integer updateDeliveryAddress(DeliveryAddress deliveryAddress);
 	
 	/**
 	 * 根据送货地址编号删除一条记录

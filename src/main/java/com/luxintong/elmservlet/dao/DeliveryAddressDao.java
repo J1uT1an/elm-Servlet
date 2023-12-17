@@ -2,7 +2,6 @@ package com.luxintong.elmservlet.dao;
 
 import com.luxintong.elmservlet.po.DeliveryAddress;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -21,7 +20,7 @@ public interface DeliveryAddressDao {
 	 * @param userId
 	 * @return
 	 */
-	List<DeliveryAddress> listDeliveryAddressByUserId(String userId) throws SQLException;
+	List<DeliveryAddress> listDeliveryAddressByUserId(String userId) throws Exception;
 	
 	/**
 	 * 根据送货地址编号查询送货地址
@@ -29,32 +28,23 @@ public interface DeliveryAddressDao {
 	 * @param daId
 	 * @return
 	 */
-	DeliveryAddress getDeliveryAddressById(Integer daId) throws SQLException;
+	DeliveryAddress getDeliveryAddressById(Integer daId) throws Exception;
 	
 	/**
 	 * 向送货地址表中添加一条记录
 	 *
-	 * @param contactName
-	 * @param contactSex
-	 * @param contactTel
-	 * @param address
-	 * @param userId
+	 * @param deliveryAddress
 	 * @return
 	 */
-	Integer saveDeliveryAddress(String contactName, Integer contactSex, String contactTel, String address, String userId) throws SQLException;
+	Integer saveDeliveryAddress(DeliveryAddress deliveryAddress) throws Exception;
 	
 	/**
 	 * 根据送货地址编号更新送货地址信息
 	 *
-	 * @param daId
-	 * @param contactName
-	 * @param contactSex
-	 * @param contactTel
-	 * @param address
-	 * @param userId
+	 * @param deliveryAddress
 	 * @return
 	 */
-	Integer updateDeliveryAddress(Integer daId, String contactName, Integer contactSex, String contactTel, String address, String userId) throws SQLException;
+	Integer updateDeliveryAddress(DeliveryAddress deliveryAddress) throws Exception;
 	
 	/**
 	 * 根据送货地址编号删除一条记录
@@ -62,6 +52,6 @@ public interface DeliveryAddressDao {
 	 * @param daId
 	 * @return
 	 */
-	Integer removeDeliveryAddress(Integer daId) throws SQLException;
+	Integer removeDeliveryAddress(Integer daId) throws Exception;
 	
 }

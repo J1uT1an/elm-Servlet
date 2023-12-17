@@ -24,10 +24,11 @@ public class DeliveryAddressServiceImpl implements DeliveryAddressService {
 	// 根据用户编号查询所属送货地址
 	public List<DeliveryAddress> listDeliveryAddressByUserId(String userId) {
 		List<DeliveryAddress> list = new ArrayList<>();
-		DeliveryAddressDao deliveryAddressDao = new DeliveryAddressDaoImpl();
+		DeliveryAddressDao dao = new DeliveryAddressDaoImpl();
 		try {
-			list = deliveryAddressDao.listDeliveryAddressByUserId(userId);
-		} catch (SQLException e) {
+			DBUtil.getConnection();
+			list = dao.listDeliveryAddressByUserId(userId);
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBUtil.close();
@@ -38,64 +39,50 @@ public class DeliveryAddressServiceImpl implements DeliveryAddressService {
 	@Override
 	// 根据送货地址编号查询送货地址
 	public DeliveryAddress getDeliveryAddressById(Integer daId) {
-		
-		DeliveryAddress deliveryaddress = new DeliveryAddress();
-		DeliveryAddressDao deliveryAddressDao = new DeliveryAddressDaoImpl();
+		DeliveryAddress deliveryAddress = null;
+		DeliveryAddressDao dao = new DeliveryAddressDaoImpl();
 		try {
-			deliveryaddress = deliveryAddressDao.getDeliveryAddressById(daId);
-		} catch (SQLException e) {
+			DBUtil.getConnection();
+			deliveryAddress = dao.getDeliveryAddressById(daId);
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBUtil.close();
 		}
-		return deliveryaddress;
+		return deliveryAddress;
 	}
 	
 	
 	@Override
 	// 向送货地址表中添加一条记录
-	public Integer saveDeliveryAddress(String contactName, Integer contactSex, String contactTel, String address, String userId) {
-		DeliveryAddressDao deliveryAddressDao = new DeliveryAddressDaoImpl();
-		int row = 0;
+	public Integer saveDeliveryAddress(DeliveryAddress deliveryAddress) {
+		int result = 0;
+		DeliveryAddressDao dao = new DeliveryAddressDaoImpl();
 		try {
-			// 开启一个事物
-			DBUtil.beginTransaction();
-			row = deliveryAddressDao.saveDeliveryAddress(contactName, contactSex, contactTel, address, userId);
-			DBUtil.getConnection().commit();
-		} catch (SQLException e) {
-			try {
-				DBUtil.getConnection().rollback();
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
-			e.printStackTrace();
+			DBUtil.getConnection();
+			result = dao.saveDeliveryAddress(deliveryAddress);
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			DBUtil.close();
 		}
-		return row;
+		return result;
 	}
 	
 	@Override
 	// 根据送货地址编号更新送货地址信息
-	public Integer updateDeliveryAddress(Integer daId, String contactName, Integer contactSex, String contactTel, String address, String userId) {
-		DeliveryAddressDao deliveryAddressDao = new DeliveryAddressDaoImpl();
-		int row = 0;
+	public Integer updateDeliveryAddress(DeliveryAddress deliveryAddress) {
+		int result = 0;
+		DeliveryAddressDao dao = new DeliveryAddressDaoImpl();
 		try {
-			// 开启一个事物
-			DBUtil.beginTransaction();
-			row = deliveryAddressDao.updateDeliveryAddress(daId, contactName, contactSex, contactTel, address, userId);
-			DBUtil.getConnection().commit();
-		} catch (SQLException e) {
-			try {
-				DBUtil.getConnection().rollback();
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
-			e.printStackTrace();
+			DBUtil.getConnection();
+			result = dao.updateDeliveryAddress(deliveryAddress);
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			DBUtil.close();
 		}
-		return row;
+		return result;
 	}
 	
 	@Override

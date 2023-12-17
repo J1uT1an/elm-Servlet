@@ -17,63 +17,63 @@ import java.util.List;
  * @version: 1.0
  */
 public class DeliveryAddressController {
-	public Object listDeliveryAddressByUserId(HttpServletRequest request) {
+	public Object listDeliveryAddressByUserId(HttpServletRequest request) throws Exception {
 		// 根据用户编号查询所属送货地址
 		// public List<DeliveryAddress> listDeliveryAddressByUserId(String userId);
 		// 获取前台的请求参数，/DeliveryAddressController/listDeliveryAddressByUserId?userId=11111111111,并将其强转为Integer类型
 		String userId = request.getParameter("userId");
-		DeliveryAddressService deliveryAddressService = new DeliveryAddressServiceImpl();
-		List<DeliveryAddress> list = deliveryAddressService.listDeliveryAddressByUserId(userId);
+		DeliveryAddressService service = new DeliveryAddressServiceImpl();
+		List<DeliveryAddress> list = service.listDeliveryAddressByUserId(userId);
 		return list;
 	}
 	
-	public Object getDeliveryAddressById(HttpServletRequest request) {
+	public Object getDeliveryAddressById(HttpServletRequest request) throws Exception {
 		// 根据送货地址编号查询送货地址
 		// public DeliveryAddress getDeliveryAddressById(Integer daId);
 		// 获取前台的请求参数，/DeliveryAddressController/getDeliveryAddressById?daId=5,并将其强转为Integer类型
-		Integer daId = Integer.parseInt(request.getParameter("daId"));
-		DeliveryAddressService deliveryAddressService = new DeliveryAddressServiceImpl();
-		DeliveryAddress deliveryaddress = new DeliveryAddress();
-		deliveryaddress = deliveryAddressService.getDeliveryAddressById(daId);
-		return deliveryaddress;
+		Integer daId = Integer.valueOf(request.getParameter("daId"));
+		DeliveryAddressService service = new DeliveryAddressServiceImpl();
+		DeliveryAddress deliveryAddress = service.getDeliveryAddressById(daId);
+		return deliveryAddress;
 	}
 	
-	public Object saveDeliveryAddress(HttpServletRequest request) {
+	public Object saveDeliveryAddress(HttpServletRequest request) throws Exception {
 		// 向送货地址表中添加一条记录
 		// public Integer saveDeliveryAddress (String contactName,Integer contactSex,String contactTel,String address,String userId)
 		// 获取前台的请求参数，/DeliveryAddressController/saveDeliveryAddress?contactName=henan&contactSex=0&contactTel=11654&address=pingdingshan&userId=13568682444,并将其强转为Integer类型
-		String contactName = request.getParameter("contactName");
-		Integer contactSex = Integer.parseInt(request.getParameter("contactSex"));
-		String contactTel = request.getParameter("contactTel");
-		String address = request.getParameter("address");
-		String userId = request.getParameter("userId");
-		DeliveryAddressService deliveryAddressService = new DeliveryAddressServiceImpl();
-		int row = deliveryAddressService.saveDeliveryAddress(contactName, contactSex, contactTel, address, userId);
-		return row;
+		DeliveryAddress deliveryAddress = new DeliveryAddress();
+		deliveryAddress.setContactName(request.getParameter("contactName"));
+		deliveryAddress.setContactSex(Integer.valueOf(request.getParameter("contactSex")));
+		deliveryAddress.setContactTel(request.getParameter("contactTel"));
+		deliveryAddress.setAddress(request.getParameter("address"));
+		deliveryAddress.setUserId(request.getParameter("userId"));
+		DeliveryAddressService service = new DeliveryAddressServiceImpl();
+		int result = service.saveDeliveryAddress(deliveryAddress);
+		return result;
 	}
 	
-	public Object updateDeliveryAddress(HttpServletRequest request) {
+	public Object updateDeliveryAddress(HttpServletRequest request) throws Exception {
 		// 根据送货地址编号更新送货地址信息
 		// public Integer updateDeliveryAddress (Integer daId,String contactName,Integer contactSex,String contactTel,String address,String userId)
 		// 获取前台的请求参数，/DeliveryAddressController/updateDeliveryAddress?daId=2&contactName=beijing&contactSex=0&contactTel=11654&address=pingdingshan&userId=13568682444,并将其强转为Integer类型
-		Integer daId = Integer.parseInt(request.getParameter("daId"));
-		String contactName = request.getParameter("contactName");
-		Integer contactSex = Integer.parseInt(request.getParameter("contactSex"));
-		String contactTel = request.getParameter("contactTel");
-		String address = request.getParameter("address");
-		String userId = request.getParameter("userId");
-		DeliveryAddressService deliveryAddressService = new DeliveryAddressServiceImpl();
-		int row = deliveryAddressService.updateDeliveryAddress(daId, contactName, contactSex, contactTel, address, userId);
-		return row;
+		DeliveryAddress deliveryAddress = new DeliveryAddress();
+		deliveryAddress.setContactName(request.getParameter("contactName"));
+		deliveryAddress.setContactSex(Integer.valueOf(request.getParameter("contactSex")));
+		deliveryAddress.setContactTel(request.getParameter("contactTel"));
+		deliveryAddress.setAddress(request.getParameter("address"));
+		deliveryAddress.setDaId(Integer.valueOf(request.getParameter("daId")));
+		DeliveryAddressService service = new DeliveryAddressServiceImpl();
+		int result = service.updateDeliveryAddress(deliveryAddress);
+		return result;
 	}
 	
-	public Object removeDeliveryAddress(HttpServletRequest request) {
+	public Object removeDeliveryAddress(HttpServletRequest request) throws Exception {
 		// 根据送货地址编号删除一条记录
 		// public Integer removeDeliveryAddress (Integer daId)
 		// 获取前台的请求参数，/DeliveryAddressController/removeDeliveryAddress?daId=3,并将其强转为Integer类型
-		Integer daId = Integer.parseInt(request.getParameter("daId"));
-		DeliveryAddressService deliveryAddressService = new DeliveryAddressServiceImpl();
-		int row = deliveryAddressService.removeDeliveryAddress(daId);
-		return row;
+		Integer daId = Integer.valueOf(request.getParameter("daId"));
+		DeliveryAddressService service = new DeliveryAddressServiceImpl();
+		int result = service.removeDeliveryAddress(daId);
+		return result;
 	}
 }
