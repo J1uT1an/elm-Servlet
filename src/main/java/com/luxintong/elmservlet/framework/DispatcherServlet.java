@@ -32,38 +32,40 @@ public class DispatcherServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
-
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 处理字符编码(因为目前只有一个 Servlet, 所以先在 Servlet 里处理，没有用过滤器)
-		// 设置从服务器端向客户端返回的内容的类型   MIME类型：application/json
-		response.setContentType("application/json;charset=UTF-8");
+		/*
+		 * 中文编码处理
+		 * 处理字符编码(因为目前只有一个 Servlet, 所以先在 Servlet 里处理，没有用过滤器)
+		 * */
 		// 客户端向服务器端请求的编码格式（否则会产生乱码）  默认： IOS8859-1
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-
+		// 设置从服务器端向客户端返回的内容的类型   MIME类型：application/json
+		response.setContentType("application/json;charset=UTF-8");
+		
 		// 获取到客户端的请求路径(url的部分路径 /Controller类名/Controller方法名)
 		String path = request.getServletPath();
-
+		
 		// 根据请求路径,解析 Controller 的类名和方法名
 		String className = path.substring(1, path.lastIndexOf("/"));
 		String methodName = path.substring(path.lastIndexOf("/") + 1);
-
+		
 		PrintWriter out = null;
-
+		
+		// 判断请求路径，根据不同的请求，分发给不同的业务处理器
 		try {
-			// 4. 通过 Class.forName() 获取到 Controller 中类的信息
+			// 通过 Controller 类全名获取此类的所有信息
 			Class clazz = Class.forName("com.luxintong.elmservlet.controller." + className);
-			// 将获取到的 clazz 类转换为对象(LoginController 的对象)
+			// 将获取到的 clazz 类转换为对象(Controller 的对象)
 			Object controller = clazz.newInstance();
-
-			// 通过 clazz.getMethod() 获取 clazz 中的方法, new Class[]{HttpServletRequest.class}形参
+			// 通过 clazz.getMethod() 获取 Controller 类对象中的方法, new Class[]{HttpServletRequest.class}形参
 			Method method = clazz.getMethod(methodName, HttpServletRequest.class);
-
-			// 调用方法 method.invoke()
+			// 调用获取到的方法 method.invoke(), new Object[] {request}
 			Object result = method.invoke(controller, request);
-
-			// 获取打印流用于向网页输出内容
+			
+			// 获取向客户端响应的输出流, 用于向网页输出内容
 			out = response.getWriter();
 			ObjectMapper objectMapper = new ObjectMapper();
 			// 将处理结果 result 以 json 的格式响应给客户端浏览器
