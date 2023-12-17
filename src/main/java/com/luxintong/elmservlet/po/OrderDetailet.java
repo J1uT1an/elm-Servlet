@@ -9,7 +9,7 @@ package com.luxintong.elmservlet.po;
  * @date: 2023-12-15 17:16
  * @version: 1.0
  */
-public class OrderDetails {
+public class OrderDetailet {
 	private Integer odId;
 	private Integer orderId;
 	private Integer foodId;

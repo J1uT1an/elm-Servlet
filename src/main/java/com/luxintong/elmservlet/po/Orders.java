@@ -22,13 +22,13 @@ public class Orders {
 	// 多对一：所属商家
 	private Business business;
 	// 一对多：订单明细
-	private List<OrderDetails> list;
+	private List<OrderDetailet> list;
 	
-	public List<OrderDetails> getList() {
+	public List<OrderDetailet> getList() {
 		return list;
 	}
 	
-	public void setList(List<OrderDetails> list) {
+	public void setList(List<OrderDetailet> list) {
 		this.list = list;
 	}
 	

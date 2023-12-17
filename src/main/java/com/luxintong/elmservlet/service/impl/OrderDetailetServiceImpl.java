@@ -1,5 +1,7 @@
 package com.luxintong.elmservlet.service.impl;
 
+import com.luxintong.elmservlet.service.OrderDetailetService;
+
 /**
  * @projectName: <h3>elm-Servlet</h3>
  * @package: com.luxintong.elmservlet.service.impl
@@ -9,5 +11,5 @@ package com.luxintong.elmservlet.service.impl;
  * @date: 2023-12-15 17:18
  * @version: 1.0
  */
-public class OrderDetailetServiceImpl {
+public class OrderDetailetServiceImpl implements OrderDetailetService {
 }
