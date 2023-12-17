@@ -25,31 +25,24 @@ public interface CartService {
 	/**
 	 * 向购物车表中添加一条记录
 	 *
-	 * @param userId
-	 * @param businessId
-	 * @param foodId
+	 * @param cart
 	 * @return
 	 */
-	Integer saveCart(String userId, Integer businessId, Integer foodId);
+	Integer saveCart(Cart cart);
 	
 	/**
 	 * 根据用户编号、商家编号、食品编号更新数量
 	 *
-	 * @param userId
-	 * @param businessId
-	 * @param foodId
-	 * @param quantity
+	 * @param cart
 	 * @return
 	 */
-	Integer updateCart(String userId, Integer businessId, Integer foodId, Integer quantity);
+	Integer updateCart(Cart cart);
 	
 	/**
 	 * 根据用户编号、商家编号、食品编号删除购物车表中的一条食品记录​ 根据用户编号、商家编号删除购物车表中的多条条记录
 	 *
-	 * @param userId
-	 * @param businessId
-	 * @param foodId
+	 * @param cart
 	 * @return
 	 */
-	Integer removeCart(String userId, Integer businessId, Integer foodId);
+	Integer removeCart(Cart cart);
 }

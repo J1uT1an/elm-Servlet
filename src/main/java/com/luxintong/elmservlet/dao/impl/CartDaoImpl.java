@@ -9,7 +9,6 @@ import com.luxintong.elmservlet.util.DBUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,21 +29,21 @@ public class CartDaoImpl implements CartDao {
 	
 	@Override
 	// 根据用户编号查询此用户所有购物车信息 ​ 根据用户编号和商家编号，查询此用户购物车中某个商家的所有购物车信息
-	public List<Cart> listCart(Cart cart) throws SQLException {
+	public List<Cart> listCart(Cart cart) throws Exception {
 		// 创建 List 集合，用来保存查询结果
-		List<Cart> list = new ArrayList<>();
+		List<Cart> list = new ArrayList();
 		
 		// sql 语句
-		StringBuffer stringBuffer = new StringBuffer("select * from cart,business,food \n" +
+		StringBuffer sql = new StringBuffer("select * from cart,business,food \n" +
 				"where cart.businessId=business.businessId and cart.foodId=food.foodId \n" +
 				"and cart.userId=?");
 		if (cart.getBusinessId() != null) {
-			stringBuffer.append("and cart.businessId=?");
+			sql.append("and cart.businessId=?" + cart.getBusinessId());
 		}
 		
 		try {
 			con = DBUtil.getConnection();
-			pst = con.prepareStatement(String.valueOf(stringBuffer));
+			pst = con.prepareStatement(sql.toString());
 			// 把？换成具体的值
 			pst.setString(1, cart.getUserId());
 			if (cart.getBusinessId() != null) {
@@ -94,70 +93,68 @@ public class CartDaoImpl implements CartDao {
 	
 	@Override
 	// 向购物车表中添加一条记录
-	public Integer saveCart(String userId, Integer businessId, Integer foodId) throws SQLException {
-		int row = 0;
+	public Integer saveCart(Cart cart) throws Exception {
+		int result = 0;
 		// sql 语句
-		String sql = "insert into cart(userId,businessId,foodId,quantity) values(?,?,?,1)";
+		String sql = "insert into cart values(null,?,?,?,1)";
 		try {
 			con = DBUtil.getConnection();
 			pst = con.prepareStatement(sql);
 			// 将？替换成具体的值
-			pst.setString(1, userId);
-			pst.setInt(2, businessId);
-			pst.setInt(3, foodId);
-			
-			row = pst.executeUpdate();
+			pst.setInt(1, cart.getFoodId());
+			pst.setInt(2, cart.getBusinessId());
+			pst.setString(3, cart.getUserId());
+			result = pst.executeUpdate();
 		} finally {
 			DBUtil.close(pst);
 		}
-		return row;
+		return result;
 	}
 	
 	@Override
 	// 根据用户编号、商家编号、食品编号更新数量
-	public Integer updateCart(String userId, Integer businessId, Integer foodId, Integer quantity) throws SQLException {
-		int row = 0;
+	public Integer updateCart(Cart cart) throws Exception {
+		int result = 0;
 		// sql 语句
 		String sql = "update cart set quantity=? where userId=? and businessId=? and foodId=?";
 		try {
 			con = DBUtil.getConnection();
 			pst = con.prepareStatement(sql);
 			// 将？替换成具体的值
-			pst.setInt(1, quantity);
-			pst.setString(2, userId);
-			pst.setInt(3, businessId);
-			pst.setInt(4, foodId);
-			
+			pst.setInt(1, cart.getQuantity());
+			pst.setString(2, cart.getUserId());
+			pst.setInt(3, cart.getBusinessId());
+			pst.setInt(4, cart.getFoodId());
 			// pst.executeUpdate 这个方法是返回影响数据库的行数
-			row = pst.executeUpdate();
+			result = pst.executeUpdate();
 		} finally {
 			DBUtil.close(pst);
 		}
-		return row;
+		return result;
 	}
 	
 	@Override
 	// 根据用户编号、商家编号、食品编号删除购物车表中的一条食品记录 ​ 根据用户编号、商家编号删除购物车表中的多条条记录
-	public Integer removeCart(String userId, Integer businessId, Integer foodId) throws SQLException {
-		int row = 0;
+	public Integer removeCart(Cart cart) throws Exception {
+		int result = 0;
 		// sql 语句
-		StringBuffer stringBuffer = new StringBuffer("delete from cart where userId=? and businessId=?");
-		if (foodId != null) {
-			stringBuffer.append(" and foodId=?");
+		StringBuffer sql = new StringBuffer("delete from cart where userId = ? and businessId = ?");
+		if (cart.getFoodId() != null) {
+			sql.append(" and foodId = ?" + cart.getFood());
 		}
 		try {
 			con = DBUtil.getConnection();
-			pst = con.prepareStatement(String.valueOf(stringBuffer));
+			pst = con.prepareStatement(sql.toString());
 			//将？替换成具体的值
-			pst.setString(1, userId);
-			pst.setInt(2, businessId);
-			if (foodId != null) {
-				pst.setInt(3, foodId);
+			pst.setString(1, cart.getUserId());
+			pst.setInt(2, cart.getBusinessId());
+			if (cart.getFoodId() != null) {
+				pst.setInt(3, cart.getFoodId());
 			}
-			row = pst.executeUpdate();
+			result = pst.executeUpdate();
 		} finally {
 			DBUtil.close(pst);
 		}
-		return row;
+		return result;
 	}
 }

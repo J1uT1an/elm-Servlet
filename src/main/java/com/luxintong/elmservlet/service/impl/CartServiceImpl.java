@@ -6,7 +6,6 @@ import com.luxintong.elmservlet.po.Cart;
 import com.luxintong.elmservlet.service.CartService;
 import com.luxintong.elmservlet.util.DBUtil;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +21,12 @@ import java.util.List;
 public class CartServiceImpl implements CartService {
 	@Override
 	public List<Cart> listCart(Cart cart) {
-		List<Cart> list = new ArrayList<>();
-		CartDao cartDao = new CartDaoImpl();
+		List<Cart> list = new ArrayList();
+		CartDao dao = new CartDaoImpl();
 		try {
-			list = cartDao.listCart(cart);
-		} catch (SQLException e) {
+			DBUtil.getConnection();
+			list = dao.listCart(cart);
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			DBUtil.close();
@@ -35,63 +35,47 @@ public class CartServiceImpl implements CartService {
 	}
 	
 	@Override
-	public Integer saveCart(String userId, Integer businessId, Integer foodId) {
-		CartDao cartDao = new CartDaoImpl();
-		int row = 0;
+	public Integer saveCart(Cart cart) {
+		int result = 0;
+		CartDao dao = new CartDaoImpl();
 		try {
-			//开启一个事物
-			DBUtil.beginTransaction();
-			row = cartDao.saveCart(userId, businessId, foodId);
-			DBUtil.getConnection().commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			try {
-				DBUtil.getConnection().rollback();
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
+			DBUtil.getConnection();
+			result = dao.saveCart(cart);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		return row;
-	}
-	
-	@Override
-	public Integer updateCart(String userId, Integer businessId, Integer foodId, Integer quantity) {
-		
-		CartDao cartDao = new CartDaoImpl();
-		int row = 0;
-		try {
-			row = cartDao.updateCart(userId, businessId, foodId, quantity);
-			DBUtil.getConnection().commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			try {
-				DBUtil.getConnection().rollback();
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
-		}
-		return row;
-	}
-	
-	@Override
-	public Integer removeCart(String userId, Integer businessId, Integer foodId) {
-		CartDao cartDao = new CartDaoImpl();
-		int row = 0;
-		try {
-			row = cartDao.removeCart(userId, businessId, foodId);
-			DBUtil.getConnection().commit();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			try {
-				DBUtil.getConnection().rollback();
-			} catch (SQLException ex) {
-				ex.printStackTrace();
-			}
 		} finally {
 			DBUtil.close();
 		}
-		return row;
+		return result;
+	}
+	
+	@Override
+	public Integer updateCart(Cart cart) {
+		int result = 0;
+		CartDao dao = new CartDaoImpl();
+		try {
+			DBUtil.getConnection();
+			result = dao.updateCart(cart);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close();
+		}
+		return result;
+	}
+	
+	@Override
+	public Integer removeCart(Cart cart) {
+		int result = 0;
+		CartDao dao = new CartDaoImpl();
+		try {
+			DBUtil.getConnection();
+			result = dao.removeCart(cart);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close();
+		}
+		return result;
 	}
 }

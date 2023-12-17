@@ -2,7 +2,6 @@ package com.luxintong.elmservlet.dao;
 
 import com.luxintong.elmservlet.po.Cart;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -16,42 +15,38 @@ import java.util.List;
  */
 public interface CartDao {
 	/**
-	 * 根据用户编号查询此用户所有购物车信息​ 根据用户编号和商家编号，查询此用户购物车中某个商家的所有购物车信息
+	 * 向购物车表中添加一条记录
 	 *
 	 * @param cart
 	 * @return
-	 * @throws SQLException
+	 * @throws Exception
 	 */
-	List<Cart> listCart(Cart cart) throws SQLException;
-	
-	/**
-	 * 向购物车表中添加一条记录
-	 *
-	 * @param userId
-	 * @param businessId
-	 * @param foodId
-	 * @return
-	 */
-	Integer saveCart(String userId, Integer businessId, Integer foodId) throws SQLException;
+	Integer saveCart(Cart cart) throws Exception;
 	
 	/**
 	 * 根据用户编号、商家编号、食品编号更新数量
 	 *
-	 * @param userId
-	 * @param businessId
-	 * @param foodId
-	 * @param quantity
+	 * @param cart
 	 * @return
+	 * @throws Exception
 	 */
-	Integer updateCart(String userId, Integer businessId, Integer foodId, Integer quantity) throws SQLException;
+	Integer updateCart(Cart cart) throws Exception;
 	
 	/**
 	 * 根据用户编号、商家编号、食品编号删除购物车表中的一条食品记录​ 根据用户编号、商家编号删除购物车表中的多条条记录
 	 *
-	 * @param userId
-	 * @param businessId
-	 * @param foodId
+	 * @param cart
 	 * @return
+	 * @throws Exception
 	 */
-	Integer removeCart(String userId, Integer businessId, Integer foodId) throws SQLException;
+	Integer removeCart(Cart cart) throws Exception;
+	
+	/**
+	 * 根据用户编号查询此用户所有购物车信息​ 根据用户编号和商家编号，查询此用户购物车中某个商家的所有购物车信息
+	 *
+	 * @param cart
+	 * @return
+	 * @throws Exception
+	 */
+	List<Cart> listCart(Cart cart) throws Exception;
 }
