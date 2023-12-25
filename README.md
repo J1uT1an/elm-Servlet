@@ -3,16 +3,13 @@
 ## 项目需求
 
 本项目参照 “饿了么移动端网页版”制作。本项目专注于完成点餐业务线功能，“饿了么”中的其它功能暂不涉及。
+
 以下内容大致概括了本系统的项目需求：
 
-(1)用户信息管理:在用户进入系统前要求客户进行登录，未注册的用户需要注册后方可登录。登录时需要对用户Id和密码进行
-校验，正确后即可登录。
-
-(2)商家信息管理：向用户提供商家名称、地址、图片以及食物等相关信息。
-
-(3)购物车及订单管理：允许用户向购物车中添加或删除食物，并生成相关订单。
-
-(4)用户地址管理：一个用户可以拥有多个收货地址并对地址进行修改，保存。
+1. 用户信息管理:在用户进入系统前要求客户进行登录，未注册的用户需要注册后方可登录。登录时需要对用户Id和密码进行校验，正确后即可登录。
+2. 商家信息管理：向用户提供商家名称、地址、图片以及食物等相关信息。
+3. 购物车及订单管理：允许用户向购物车中添加或删除食物，并生成相关订单。
+4. 用户地址管理：一个用户可以拥有多个收货地址并对地址进行修改，保存。
 
 ## 业务流程
 
@@ -128,6 +125,7 @@
 ### 架构设计
 
 项目采用MVC架构设计如下图所示。
+
 ![mvc](pic/MVC.png)
 
 1. 本工程采用：基于Servlet的简易MVC架构。
@@ -139,12 +137,15 @@
 ### UML图 （有改动，并未更新）
 
 Controller层UML图如下图所示。
+
 ![controller](pic/controller.png)
 
 Service层UML图如下图所示。
+
 ![service](pic/service.png)
 
 Dao层UML图如下图所示。
+
 ![dao](pic/dao.png)
 
 ### 跨域问题解决方案
@@ -196,17 +197,16 @@ public class CorsFilter implements Filter {
 ### 事务处理解决方案
 
 ![事务处理](pic/事务处理.png)
+
 首先要明确一点：事务处理放在service层。所以：
 
 1. Connection的创建与销毁要放在service层。
-2.
-为了保证在同一次请求处理的线程中，service层和dao层都共用同一个Connection对象，需要将Connection对象放入ThreadLocal中。service层和dao层使用的Connection对象一律从ThreadLocal获取。
+2.为了保证在同一次请求处理的线程中，service层和dao层都共用同一个Connection对象，需要将Connection对象放入ThreadLocal中。service层和dao层使用的Connection对象一律从ThreadLocal获取。
 3. dao层不再处理异常，dao层产生的异常将直接抛给service层进行处理。
 4. dao层负责关闭PreparedStatement和ResultSet，service层负责关闭Connection。
 
 > 附录：
->
-ThreadLocal为解决多线程程序的并发问题提供了一种新的思路。当使用ThreadLocal维护变量时，ThreadLocal为每个使用该变量的线程提供独立的变量副本，所以每一个线程都可以独立地改变自己的副本，而不会影响其它线程所对应的副本。
+> ThreadLocal为解决多线程程序的并发问题提供了一种新的思路。当使用ThreadLocal维护变量时，ThreadLocal为每个使用该变量的线程提供独立的变量副本，所以每一个线程都可以独立地改变自己的副本，而不会影响其它线程所对应的副本。
 > Synchronized用于线程间的数据共享，而ThreadLocal则用于线程间的数据隔离。
 
 ### Servlet返回JSON解决方案
@@ -217,8 +217,8 @@ Github 中的统计来看，Jackson 是最流行的 json 解析器之一。 Spri
 本项目中，Servlet中使用Jackson将java对象或集合转换为json对象或数组后，返回前端。
 
 ```java
-ObjectMapper om=new ObjectMapper();
-        out.print(om.writeValueAsString(result));      // result就是响应数据
+ObjectMapper om = new ObjectMapper();
+out.print(om.writeValueAsString(result));      // result就是响应数据
 ```
 
 ### 图片解决方案
@@ -378,5 +378,6 @@ yQCPMb5gMkEAkhVxx7u56UFZWP/Z">
 ## 项目测试
 
 利用postman对接口进行测试，若能正确返回结果，则表明接口实现正确。如下图所示。
+
 ![输入图片说明](pic/postman.png)
 
